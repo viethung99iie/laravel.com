@@ -1,0 +1,96 @@
+-- To follow make new module
++ Web
++ Controller
++ Model(SoflDelete)
++ Repository
++ Service
++ Provider
++ Config (config:cache)
++ Request
++ View
+
+-- Module : User :
+- users :
+    + id bigInt(20)
+    + name (varchar,20)
+    + phone (varchar,20)
+    + province_id (varchar,10)
+    + district_id (varchar,10)
+    + ward_id (varchar,10)
+    + address (varchar,255)
+    + image (varchar,255)
+    + birth_date (date)
+    + description text
+    + user_agent text
+    + ip text
+    + email (varchar,255)
+    + password (varchar,255)
+    + user_catalogue_id (bigInt,20) foreign_key
+    + publish (tinyInt,20)
+    + delete_at (datatime)
+
+- user_catalogues :
+    + id bigInt(20)
+    + name (varchar,255)
+    + description text
+    + publish (tinyInt,20)
+    + delete_at (datatime)
+
+
+-- Module:  Post :
+
+- language :
+    + id  bigInt(20)
+    + name (varchar,50)
+    + canonical  (varchar,50)
+    + image  (varchar,50)
+    + user_id  (bigInt,20) foreign_key
+    + delete_at  (datatime)
+
+- post-catalogues :
+    + id bigInt(20)
+    + parend_id (lưu mã danh mục cha )
+    + lft (giá trị bên trái của node)
+    + rgt (giá trị bên phải của node)
+    + level (cấp của các node đó)
+    + image (ảnh đại diện)
+    + icon (ảnh nhỏ )
+    + album (danh sách ảnh)
+    + publish (trạng thái)
+    + order (sắp xếp các danh mục)
+    + user_id  (bigInt,20) foreign_key
+    + delete_at  (xóa )
+
+- post_catalogues_translate :
+    + post_catalogue_id
+    + language_id
+    + name ( tên bài viết )
+    + description ( mô tả ngắn )
+    + canonical ( đường dẫn truy cập vào danh mục)
+    + content (nội dung)
+    + meta_title : tiêu đề SEO
+    + meta_description : mô tả SEO
+    + meta_keyword : từ khóa SEO
+- posts :
+    + id
+    + post_catalogues_id
+    + image
+    + album
+    + icon
+    + order
+    + publish
+    + delete_at
+    + user_id
+
+- post_catalogues_post:
+   + post_id
+    + language_id
+    + name ( tên bài viết )
+    + description ( mô tả ngắn )
+    + canonical ( đường dẫn truy cập vào danh mục)
+    + content (nội dung)
+    + meta_title : tiêu đề SEO
+    + meta_description : mô tả SEO
+    + meta_keyword : từ khóa SEO
+
+
