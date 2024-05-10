@@ -12,14 +12,14 @@
                         <h5>Thông tin chung</h5>
                     </div>
                     <div class="ibox-content">
-                        @include('backend.post.post-catalogue.component.general')
+                        @include('backend.post.catalogue.component.general')
                     </div>
                 </div>
                 @include('backend.dashboard.component.album')
-                @include('backend.post.post-catalogue.component.seo')
+                @include('backend.post.catalogue.component.seo')
             </div>
             <div class="col-lg-3">
-                @include('backend.post.post-catalogue.component.aside')
+                @include('backend.post.catalogue.component.aside')
 
             </div>
         </div>

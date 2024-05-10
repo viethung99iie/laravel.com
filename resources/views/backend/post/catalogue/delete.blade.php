@@ -1,8 +1,8 @@
 @include('backend.dashboard.component.breadcumb',['title'=>$config['seo']['delete']['title']])
 @if ($errors->any())
-    <div class="alert alert-danger">
-        Đã có lỗi xảy ra vui lòng kiểm tra lại..
-    </div>
+<div class="alert alert-danger">
+    {{__('messages.error')}}
+</div>
 @endif
 <form action="{{route('post.catalogue.destroy',$postCatalogue->id)}}" class="box" method="post">
     @csrf
@@ -11,10 +11,11 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="panel-head">
-                    <div class="panel-title">Thông tin chung</div>
+                    <div class="panel-title">{{__('messages.generalTitle')}}</div>
+
                     <div class="panel-description">
-                        <p> - Thông tin nhóm bài viết bạn muốn xóa là : </p>
-                        <p> - Lưu ý: Không thể khôi phục dữ liệu sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này.</p>
+                        {{__('messages.generalDescription')}}
+
                     </div>
                 </div>
             </div>
@@ -25,21 +26,13 @@
                             <div class="col-lg-12   ">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
-                                        Tên nhóm bài viết <span class="text-danger">(*)</span>
+                                        {{__('messages.title')}} <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value="{{old('name',($postCatalogue->name) ?? '')}} "
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        readonly
-                                    >
+                                    <input type="text" name="name" value="{{old('name',($postCatalogue->name) ?? '')}} " class="form-control" placeholder="" autocomplete="off" readonly>
                                 </div>
-                                 @error('name')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                @error('name')
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

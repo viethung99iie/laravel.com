@@ -1,6 +1,6 @@
 
 @php
-    $post_catalogue_id = old('post_catalogue_id',(isset($post->parent_id)) ? $post->parent_id :  '');
+    $post_catalogue_id = old('post_catalogue_id',(isset($post->post_catalogue_id)) ? $post->post_catalogue_id :  '');
     $publish = old('publish',(isset($post->publish)) ? $post->publish  :  '');
     $follow = old('follow',(isset($post->follow)) ? $post->follow :  '');
 @endphp
@@ -25,6 +25,14 @@
                         @enderror
                 </div>
             </div>
+            @php
+            $catalogue = [];
+            if(isset($post)){
+                foreach($post->post_catalogues as $key => $val){
+                    $catalogue[] = $val->id;
+                }
+            }
+        @endphp
             <div class="row ">
                 <div class="col-lg-12">
                     <div class="form-row">
@@ -32,8 +40,12 @@
                         <select name="catalogue[]" class="form-control setUpSelect2" id="" multiple>
                             @foreach ($dropDown as $key => $val)
                                     <option
-                                    @selected( in_array($key,old('catalogue',isset($post->catalogue)? $post->catalogue : [])))
-                                    value="{{$key}}">{{$val}}</option>
+                            @if(is_array(old('catalogue[]', (
+                                isset($catalogue) && count($catalogue)) ?   $catalogue : [])
+                                ) && isset($post->post_catalogue_id) &&   in_array($key, old('catalogue', (isset($catalogue)) ? $catalogue : []))
+                            )
+                            selected
+                            @endif value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </select>
                     </div>

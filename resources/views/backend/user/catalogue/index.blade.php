@@ -5,11 +5,11 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>{{$config['seo']['index']['table']}}</h5>
-                    @include('backend.user.user-catalogue.component.tool', ['model' => 'UserCatalogue'])
+                    @include('backend.user.catalogue.component.tool', ['model' => 'UserCatalogue'])
                 </div>
                 <div class="ibox-content">
-                    @include('backend.user.user-catalogue.component.filter',['title'=>$config['seo']['create']['title']])
-                    @include('backend.user.user-catalogue.component.table')
+                    @include('backend.user.catalogue.component.filter',['title'=>$config['seo']['create']['title']])
+                    @include('backend.user.catalogue.component.table')
                 </div>
             </div>
         </div>

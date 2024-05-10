@@ -37,7 +37,7 @@
                         <input
                             type="checkbox"
                             class="js-switch status"
-                            data-model='UserCatalogue'
+                            data-model='{{ $config['model']}}'
                             data-field='publish'
                             data-modelId = '{{$userCatalogue->id}}'
                             value="{{$userCatalogue->publish}}"
