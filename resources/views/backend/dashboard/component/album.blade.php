@@ -11,7 +11,7 @@
     </div>
     <div class="ibox-content ">
          @php
-            $album = (!empty($postCatalogue->album)) ? json_decode($postCatalogue->album) : [];
+            $album = (!empty($post->album)) ? json_decode($post->album) : [];
             $gallery = (isset($album) && count($album) ) ? $album : old('album');
 
         @endphp
@@ -33,7 +33,7 @@
                                 <li class="ui-state-default">
                                 <div class="thumb">
                                     <span class="span image img-scaledown">
-                                        <img src="{{$val}}" alt="{{$val}}">
+                                        <img src="{{$val}}" alt="{{asset($val)}}">
                                         <input type="hidden" name="album[]" value="{{$val}}">
                                     </span>
                                     <button class="delete-image"><i class="fa fa-trash"></i></button>

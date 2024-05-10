@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,8 +15,14 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(UserRepository $userRepository): void
     {
-        User::Factory()->count(1000)->create();
+            $userArray = [];
+            $userArray['email'] = 'viethungw@gmail.com';
+            $userArray['password'] = Hash::make('password');
+            $userArray['name'] = 'Nguyễn Việt Hưng';
+            $userArray['user_catalogue_id'] = 0;
+            $userRepository->create($userArray);
     }
+
 }

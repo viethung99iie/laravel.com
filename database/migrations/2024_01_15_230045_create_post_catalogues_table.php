@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('parent_id')->default(0);
             $table->integer('lft')->default(0);
-            $table->integer('right')->default(0);
+            $table->integer('rgt')->default(0);
             $table->integer('level')->default(0);
             $table->string('image')->nullable();
             $table->string('icon')->nullable();

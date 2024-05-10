@@ -27,56 +27,60 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             ],
-            'css'=>[
+            'css' => [
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-
-            ]
+            ],
+            'model' => 'User'
         ];
         $users = $this->userService->paginate($request);
         $config['seo'] = config('apps.user');
 
         $template = 'backend.user.user.index';
-        return view('backend.dashboard.layout',compact(
+        return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'users',
         ));
     }
-    public function create(){
+    public function create()
+    {
         $config = $this->config();
         $config['seo'] = config('apps.user');
         $config['method'] = 'create';
         $provinces = $this->provinceRepository->all();
         $template = 'backend.user.user.store';
-        return view('backend.dashboard.layout',compact(
+        return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'provinces',
         ));
     }
 
-    public function store(StoreUserRequest $request){
-        if($this->userService->create($request)){
-            return redirect()->route('user.index')->with('success','Thêm mới người dùng thành công');
+    public function store(StoreUserRequest $request)
+    {
+        if ($this->userService->create($request)) {
+            return redirect()->route('user.index')->with('success', 'Thêm mới người dùng thành công');
         }
-        return redirect()->route('user.index')->with('error','Đã có lỗi xảy ra, vui lòng  thử lại');
+        return redirect()->route('user.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = $this->userRepository->findById($id);
         $config = $this->config();
         $config['seo'] = config('apps.user');
         $config['method'] = 'edit';
         $provinces = $this->provinceRepository->all();
         $template = 'backend.user.user.store';
-        return view('backend.dashboard.layout',compact(
+        return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'provinces',
@@ -84,32 +88,36 @@ class UserController extends Controller
         ));
     }
 
-    public function update($id,UpdateUserRequest $request){
-        if($this->userService->update($id,$request)){
-            return redirect()->route('user.index')->with('success','Cập nhật người dùng thành công');
+    public function update($id, UpdateUserRequest $request)
+    {
+        if ($this->userService->update($id, $request)) {
+            return redirect()->route('user.index')->with('success', 'Cập nhật người dùng thành công');
         }
-        return redirect()->route('user.index')->with('error','Đã có lỗi xảy ra, vui lòng  thử lại');
+        return redirect()->route('user.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $user = $this->userRepository->findById($id);
         $config['seo'] = config('apps.user');
         $template = 'backend.user.user.delete';
-        return view('backend.dashboard.layout',compact(
+        return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'user'
         ));
     }
 
-    public function destroy($id){
-        if($this->userService->delete($id)){
-            return redirect()->route('user.index')->with('success','Xóa người dùng thành công');
+    public function destroy($id)
+    {
+        if ($this->userService->delete($id)) {
+            return redirect()->route('user.index')->with('success', 'Xóa người dùng thành công');
         }
-        return redirect()->route('user.index')->with('error','Đã có lỗi xảy ra, vui lòng  thử lại');
+        return redirect()->route('user.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');
     }
 
-    private function config(){
+    private function config()
+    {
         return [
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
@@ -117,7 +125,7 @@ class UserController extends Controller
                 'backend/plugins/ckfinder_2/ckfinder.js',
                 'backend/library/finder.js',
             ],
-            'css'=>[
+            'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ]
         ];
