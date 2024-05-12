@@ -25,11 +25,11 @@ class StorePostRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'canonical' => 'required|unique:post_catalogue_language',
+            'canonical' => 'required|unique:routers',
         ];
     }
 
-     public function messages(): array
+    public function messages(): array
     {
         return [
             'required' => ':attribute không được để trống',
@@ -42,7 +42,7 @@ class StorePostRequest extends FormRequest
         return [
             'name' => 'Tên nhóm thành viên',
             'parent_id' => 'Danh mục bài viết',
-            'canonical' => 'Canonical'
+            'canonical' => 'Canonical',
         ];
     }
 }

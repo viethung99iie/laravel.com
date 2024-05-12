@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
-use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Services\Interfaces\UserServiceInterface as UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,6 +28,8 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('modules', 'user.index');
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -38,7 +39,7 @@ class UserController extends Controller
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ],
-            'model' => 'User'
+            'model' => 'User',
         ];
         $users = $this->userService->paginate($request);
         $config['seo'] = config('apps.user');
@@ -52,6 +53,8 @@ class UserController extends Controller
     }
     public function create()
     {
+        $this->authorize('modules', 'user.create');
+
         $config = $this->config();
         $config['seo'] = config('apps.user');
         $config['method'] = 'create';
@@ -74,6 +77,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('modules', 'user.edit');
+
         $user = $this->userRepository->findById($id);
         $config = $this->config();
         $config['seo'] = config('apps.user');
@@ -98,6 +103,8 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        $this->authorize('modules', 'user.destroy');
+
         $user = $this->userRepository->findById($id);
         $config['seo'] = config('apps.user');
         $template = 'backend.user.user.delete';
@@ -127,7 +134,7 @@ class UserController extends Controller
             ],
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ]
+            ],
         ];
     }
 }

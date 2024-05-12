@@ -5,17 +5,17 @@
     <div class="ibox-content">
         <div class="seo-container">
             <h3 class="meta-title">
-                {{old('meta_title',(isset($postCatalogue->meta_title) ?$postCatalogue->meta_title : __('messages.seoTitle')))}}
+                {{old('meta_title',(isset($post->meta_title) ?$post->meta_title : __('messages.seoTitle')))}}
             </h3>
             <div class="meta-canonical">
                 {{old('canonical',
-                                (isset($postCatalogue->canonical) ? config('app.url').'/'.$postCatalogue->canonical.config('apps.general.suffix') : __('messages.seoCanonical')))}}
+                                (isset($post->canonical) ? config('app.url').'/'.$post->canonical.config('apps.general.suffix') : __('messages.seoCanonical')))}}
 
 
 
             </div>
             <div class="meta-description">
-                {{old('meta_title',(isset($postCatalogue->meta_description) ?$postCatalogue->meta_description : __('messages.seoDescription')))}}
+                {{old('meta_title',(isset($post->meta_description) ?$post->meta_description : __('messages.seoDescription')))}}
 
 
             </div>
@@ -33,7 +33,7 @@
 
                             </div>
                         </label>
-                        <input type="text" name="meta_title" value="{{old('meta_title',($postCatalogue->meta_title) ?? '')}} " class="form-control" autocomplete="off">
+                        <input type="text" name="meta_title" value="{{old('meta_title',($post->meta_title) ?? '')}} " class="form-control" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                             {{__('messages.seoMetaKeyword')}}
 
                         </label>
-                        <input type="text" name="meta_keyword" value="{{old('meta_keyword',($postCatalogue->meta_keyword) ?? '')}} " class="form-control" autocomplete="off">
+                        <input type="text" name="meta_keyword" value="{{old('meta_keyword',($post->meta_keyword) ?? '')}} " class="form-control" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
 
                             </div>
                         </label>
-                        <textarea name="meta_description" class="form-control" autocomplete="off">{!!old('meta_description',($postCatalogue->meta_description) ?? '')!!} </textarea>
+                        <textarea name="meta_description" class="form-control" autocomplete="off">{!!old('meta_description',($post->meta_description) ?? '')!!} </textarea>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
                         </label>
                         <div class="input-wrapper">
-                            <input type="text" name="canonical" value="{{old('canonical',($postCatalogue->canonical) ?? '')}} " class="form-control" autocomplete="off">
+                            <input type="text" name="canonical" value="{{old('canonical',($post->canonical) ?? '')}} " class="form-control" autocomplete="off">
                             <span class="baseUrl">{{config('app.url')}}/</span>
                         </div>
                     </div>

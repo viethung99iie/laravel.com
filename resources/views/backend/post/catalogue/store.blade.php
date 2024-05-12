@@ -1,6 +1,6 @@
 @include('backend.dashboard.component.breadcumb',['title'=>$config['seo'][$config['method']]['title']])
 @php
-    $form_action = ($config['method']=='edit') ? route('post.catalogue.update',['id'=>$postCatalogue->id]): route('post.catalogue.store');
+$form_action = ($config['method']=='edit') ? route('post.catalogue.update',['id'=>$post->id]): route('post.catalogue.store');
 @endphp
 <form action="{{$form_action}}" class="box" method="post">
     @csrf
@@ -28,4 +28,3 @@
         </div>
     </div>
 </form>
-

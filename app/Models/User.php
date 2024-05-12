@@ -3,17 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Traits\QueryScopes;
-
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes , QueryScopes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, QueryScopes;
 
     /**
      * The attributes that are mass assignable.
@@ -59,6 +58,11 @@ class User extends Authenticatable
 
     public function user_catalogues()
     {
-        return $this->belongsTo(UserCatalogue::class,'user_catalogue_id','id');
+        return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
+    }
+
+    public function has_permission($permissionCanonical)
+    {
+        return $this->user_catalogues()->permissions()->contains('canonical', $permissionCanonical);
     }
 }

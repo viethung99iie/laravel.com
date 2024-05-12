@@ -50,6 +50,14 @@ class BaseRepository implements BaseRepositoryInterface
         $model = $this->findById($id);
         return $model->update($payload);
     }
+    public function findByCondition($condition = [], array $payload = [])
+    {
+        $query = $this->model->newQuery();
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+        return $query->first();
+    }
     public function updateByWhereIn(
         String $whereInField = '',
         array $whereIn = [],

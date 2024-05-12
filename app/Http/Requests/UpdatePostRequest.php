@@ -25,12 +25,12 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'canonical' => 'required|unique:post_language,canonical,'
-            .$this->id.',post_id',
+            'canonical' => 'required|unique:routers,canonical,'
+            . $this->id . ',module_id',
         ];
     }
 
-     public function messages(): array
+    public function messages(): array
     {
         return [
             'required' => ':attribute không được để trống',
@@ -44,7 +44,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'name' => 'Tên nhóm thành viên',
             'parent_id' => 'Danh mục bài viết',
-            'canonical' => 'Canonical'
+            'canonical' => 'Canonical',
         ];
     }
 }

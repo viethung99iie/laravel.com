@@ -25,7 +25,7 @@ class StorePostCatalogueRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'canonical' => 'required|unique:post_catalogue_language',
+            'canonical' => 'required|unique:routers',
         ];
     }
 

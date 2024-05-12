@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +25,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define("modules", function ($user, $permissionName) {
+            if ($user->publish != 2) {
+                return false;
+            }
+
+            $permission = $user->user_catalogues->permissions;
+            if ($permission->contains('canonical', $permissionName)) {
+                return true;
+            }
+            return false;
+        });
     }
 }
