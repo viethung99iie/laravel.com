@@ -3,7 +3,7 @@
         <label for="" class="control-label text-left">
             {{__('messages.title')}}<span class="text-danger">(*)</span>
         </label>
-        <input type="text" name="name" value="{{old('name',($postCatalogue->name) ?? '')}} " class="form-control" autocomplete="off">
+        <input type="text" name="name" value="{{old('name',($post->name) ?? '')}} " class="form-control" autocomplete="off">
     </div>
     @error('name')
     <div class="error-message">* {{ $message }}</div>
@@ -15,7 +15,7 @@
             {{__('messages.description')}}<span class="text-danger">(*)</span>
 
         </label>
-        <textarea name="description" class="form-control ck-editor" id='description' autocomplete="off" data-height="150">{!!old('description',($postCatalogue->description) ?? '')!!} </textarea>
+        <textarea name="description" class="form-control ck-editor" id='description' autocomplete="off" data-height="150">{!!old('description',($post->description) ?? '')!!} </textarea>
     </div>
     @error('description')
     <div class="error-message">* {{ $message }}</div>
@@ -32,7 +32,7 @@
 
         </div>
 
-        <textarea type="text" name="content" value="" class="form-control ck-editor" id='ckContent' autocomplete="off" data-height="400">{!!old('content',($postCatalogue->content) ?? '')!!} </textarea>
+        <textarea type="text" name="content" value="" class="form-control ck-editor" id='ckContent' autocomplete="off" data-height="400">{!!old('content',($post->content) ?? '')!!} </textarea>
     </div>
     @error('content')
     <div class="error-message">* {{ $message }}</div>

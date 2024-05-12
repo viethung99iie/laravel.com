@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeletePostCatalogueRequest;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
-use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
+use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use Illuminate\Http\Request;
 
 class PostCatalogueController extends Controller
@@ -34,6 +34,8 @@ class PostCatalogueController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('modules', 'post.catalogue.index');
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -43,7 +45,7 @@ class PostCatalogueController extends Controller
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ],
-            'model' => 'PostCatalogue'
+            'model' => 'PostCatalogue',
         ];
         $config['seo'] = config('apps.postcatalogue');
         $postCatalogues = $this->postCatalogueService->paginate($request);
@@ -56,6 +58,8 @@ class PostCatalogueController extends Controller
     }
     public function create()
     {
+        $this->authorize('modules', 'post.catalogue.create');
+
         $dropDown = $this->nestedSet->Dropdown();
         $config = $this->config();
         $config['seo'] = config('apps.postcatalogue');
@@ -79,6 +83,8 @@ class PostCatalogueController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('modules', 'post.catalogue.edit');
+
         $dropDown = $this->nestedSet->Dropdown();
         $post = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
         $config = $this->config();
@@ -103,6 +109,8 @@ class PostCatalogueController extends Controller
 
     public function delete($id)
     {
+        $this->authorize('modules', 'post.catalogue.destroy');
+
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
         $config['seo'] = config('apps.postcatalogue');
         $template = 'backend.post.catalogue.delete';
@@ -132,7 +140,7 @@ class PostCatalogueController extends Controller
             ],
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ]
+            ],
         ];
     }
 }

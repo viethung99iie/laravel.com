@@ -1,16 +1,19 @@
+@include('backend.dashboard.component.breadcumb',['title'=>__('messages.post.index.title')])
 
-@include('backend.dashboard.component.breadcumb',['title'=>$config['seo']['index']['title']])
+
 <div class="row mt20">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>{{$config['seo']['index']['table']}}</h5>
-                    @include('backend.post.post.component.tool', ['model' => 'PostCatalogue'])
-                </div>
-                <div class="ibox-content">
-                    @include('backend.post.post.component.filter',['title'=>$config['seo']['create']['title']])
-                    @include('backend.post.post.component.table')
-                </div>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{__('messages.post.index.table')}}</h5>
+
+                @include('backend.post.post.component.tool', ['model' => 'Post'])
+            </div>
+            <div class="ibox-content">
+                @include('backend.post.post.component.filter',['title'=>__('messages.post.create.title')])
+
+                @include('backend.post.post.component.table')
             </div>
         </div>
+    </div>
 </div>

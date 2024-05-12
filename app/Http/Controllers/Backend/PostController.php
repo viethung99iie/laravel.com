@@ -33,6 +33,8 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('modules', 'post.index');
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -57,6 +59,8 @@ class PostController extends Controller
     }
     public function create()
     {
+        $this->authorize('modules', 'post.create');
+
         $dropDown = $this->nestedSet->Dropdown();
         $config = $this->config();
         $config['seo'] = config('apps.postcatalogue');
@@ -79,6 +83,8 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('modules', 'post.edit');
+
         $dropDown = $this->nestedSet->Dropdown();
         $post = $this->postRepository->getPostById($id, $this->language);
         $config = $this->config();
@@ -103,6 +109,8 @@ class PostController extends Controller
 
     public function delete($id)
     {
+        $this->authorize('modules', 'post.destroy');
+
         $post = $this->postRepository->getPostById($id, $this->language);
         $config['seo'] = config('apps.post');
         $template = 'backend.post.post.delete';

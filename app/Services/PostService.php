@@ -17,6 +17,8 @@ class PostService extends BaseService implements PostServiceInterface
     protected $postRepository;
     protected $language;
 
+    protected $controllerName = ['PostController'];
+
     public function __construct(
         PostRepository $postRepository,
     ) {
@@ -25,13 +27,14 @@ class PostService extends BaseService implements PostServiceInterface
     }
     public function paginate($request)
     {
-        $conditions['keywords'] = addslashes($request->get('keywords'));
-        $perpage = $request->integer('perpage');
-        $conditions['publish'] = $request->integer('publish');
-        // $conditions['post_catalogue_id'] = $request->integer('post_catalogue_id');
-        $conditions['where'] = [
-            ['tb2.language_id', '=', $this->language],
+        $conditions = [
+            'keywords' => addslashes($request->get('keywords')),
+            'publish' => $request->integer('publish'),
+            'where' => [
+                ['tb2.language_id', '=', $this->language],
+            ],
         ];
+        $perpage = $request->integer('perpage');
         $paginationConfig = [
             'groupBy' => $this->select(),
         ];
@@ -63,6 +66,8 @@ class PostService extends BaseService implements PostServiceInterface
             if ($post->id > 0) {
                 $this->updateLanguageForPost($post, $request, 1);
                 $this->updateCatalogueForPost($post, $request);
+                $this->createRouter($post, $request, $this->controllerName);
+
             }
             DB::commit();
             return true;
@@ -82,6 +87,7 @@ class PostService extends BaseService implements PostServiceInterface
             if ($this->updatePost($post, $request)) {
                 $this->updateLanguageForPost($post, $request, 1);
                 $this->updateCatalogueForPost($post, $request);
+                $this->updateRouter($post, $request, $this->controllerName);
             }
             DB::commit();
             return true;
@@ -92,25 +98,6 @@ class PostService extends BaseService implements PostServiceInterface
             die();
             return false;
         }
-    }
-
-    private function whereRaw($request, $languageId)
-    {
-        $rawCondition = [];
-        if ($request->integer('post_catalogue_id') > 0) {
-            $rawCondition['whereRaw'] = [
-                'tb3.post_catalogue_id IN (
-                        SELECT id
-                        FROM post_catalogues
-                        JOIN post_catalogue_language ON post_catalogues.id = post_catalogue_language.post_catalogue_id
-                        WHERE lft >= (SELECT lft FROM post_catalogues as pc WHERE pc.id = ?)
-                        AND rgt <= (SELECT rgt FROM post_catalogues as pc WHERE pc.id = ?)
-                        AND post_catalogue_language.language_id = ' . $languageId . '
-                    )',
-                [$request->integer('post_catalogue_id'), $request->integer('post_catalogue_id')],
-            ];
-        }
-        return $rawCondition;
     }
 
     public function delete($id)
@@ -144,11 +131,6 @@ class PostService extends BaseService implements PostServiceInterface
         $payload['album'] = $this->formatAlbum($request);
         return $this->postRepository->update($post->id, $payload);
 
-    }
-
-    public function formatAlbum($request)
-    {
-        return ($request->input('album') && !empty($request->input('album'))) ? json_encode($request->input('album')) : '';
     }
 
     private function updateLanguageForPost($post, $request, $languageId)
@@ -210,6 +192,24 @@ class PostService extends BaseService implements PostServiceInterface
     private function catalogue($request)
     {
         return array_unique(array_merge($request->input('catalogue'), [$request->post_catalogue_id]));
+    }
+    private function whereRaw($request, $languageId)
+    {
+        $rawCondition = [];
+        if ($request->integer('post_catalogue_id') > 0) {
+            $rawCondition['whereRaw'] = [
+                'tb3.post_catalogue_id IN (
+                        SELECT id
+                        FROM post_catalogues
+                        JOIN post_catalogue_language ON post_catalogues.id = post_catalogue_language.post_catalogue_id
+                        WHERE lft >= (SELECT lft FROM post_catalogues as pc WHERE pc.id = ?)
+                        AND rgt <= (SELECT rgt FROM post_catalogues as pc WHERE pc.id = ?)
+                        AND post_catalogue_language.language_id = ' . $languageId . '
+                    )',
+                [$request->integer('post_catalogue_id'), $request->integer('post_catalogue_id')],
+            ];
+        }
+        return $rawCondition;
     }
 
     private function select()

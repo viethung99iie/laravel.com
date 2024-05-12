@@ -24,6 +24,8 @@ class LanguageController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('modules', 'language.index');
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -46,6 +48,8 @@ class LanguageController extends Controller
     }
     public function create()
     {
+        $this->authorize('modules', 'language.create');
+
         $config = $this->config();
         $config['seo'] = config('apps.language');
         $config['method'] = 'create';
@@ -66,6 +70,8 @@ class LanguageController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('modules', 'language.edit');
+
         $config = $this->config();
         $language = $this->languageRepository->findById($id);
 
@@ -89,6 +95,8 @@ class LanguageController extends Controller
 
     public function delete($id)
     {
+        $this->authorize('modules', 'language.destroy');
+
         $language = $this->languageRepository->findById($id);
         $config['seo'] = config('apps.language');
         $template = 'backend.language.delete';

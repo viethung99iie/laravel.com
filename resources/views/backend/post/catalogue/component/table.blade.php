@@ -4,7 +4,7 @@
             <th style="width: 50px">
                 <input type="checkbox" class="form-check" id="checkAll" value="">
             </th>
-            <th>{{__('messages.tableHeading')}}</th>
+            <th>{{__('messages.table')}}</th>
 
             <th class="text-center" style="width: 100px">{{__('messages.tableStatus')}}</th>
 

@@ -13,4 +13,7 @@ return [
     'delete' => [
         'title' => 'Xóa người nhóm thành viên',
     ],
+    'permission' => [
+        'title' => 'Quản lí quyền',
+    ],
 ];
