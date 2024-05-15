@@ -2,21 +2,38 @@
 
 namespace App\Services;
 
+use App\Models\Language;
 use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 use App\Services\Interfaces\BaseServiceInterface;
 use Illuminate\Support\Str;
 
+/**
+ * Class LanguageService
+ * @package App\Services
+ */
 class BaseService implements BaseServiceInterface
 {
-    protected $routerRepository;
+
+    protected $routerRespository;
+    protected $controllerName;
+    protected $language;
+
     public function __construct(
-        RouterRepository $routerRepository,
+        RouterRepository $routerRepository
     ) {
         $this->routerRepository = $routerRepository;
     }
+
     public function currentLanguage()
     {
-        return 1;
+        $locale = app()->getLocale();
+        $language = Language::where('canonical', $locale)->first();
+        return $language->id;
+    }
+
+    public function formatAlbum($request)
+    {
+        return ($request->input('album') && !empty($request->input('album'))) ? json_encode($request->input('album')) : '';
     }
 
     public function nestedset()
@@ -26,27 +43,24 @@ class BaseService implements BaseServiceInterface
         $this->nestedset->Action();
     }
 
-    public function formatAlbum($request)
-    {
-        return ($request->input('album') && !empty($request->input('album'))) ? json_encode($request->input('album')) : '';
-    }
-
-    public function formatRouterPayload($model, $request, $controllerName)
+    public function formatRouterPayload($model, $request, $controllerName, $languageId)
     {
         $router = [
             'canonical' => Str::slug($request->input('canonical')),
             'module_id' => $model->id,
+            'language_id' => $languageId,
             'controllers' => 'App\Http\Controllers\Frontend\\' . $controllerName . '',
         ];
         return $router;
     }
-    public function createRouter($model, $request, $controllerName)
+
+    public function createRouter($model, $request, $controllerName, $languageId)
     {
-        $router = $this->formatRouterPayload($model, $request, $controllerName);
+        $router = $this->formatRouterPayload($model, $request, $controllerName, $languageId);
         $this->routerRepository->create($router);
     }
 
-    public function updateRouter($model, $request, $controllerName)
+    public function updateRouter($model, $request, $controllerName, $languageId)
     {
         $payload = $this->formatRouterPayload($model, $request, $controllerName);
         $condition = [
@@ -57,4 +71,5 @@ class BaseService implements BaseServiceInterface
         $res = $this->routerRepository->update($router->id, $payload);
         return $res;
     }
+
 }

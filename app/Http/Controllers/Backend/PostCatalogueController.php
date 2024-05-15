@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeletePostCatalogueRequest;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
+use App\Models\Language;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use Illuminate\Http\Request;
@@ -24,12 +25,26 @@ class PostCatalogueController extends Controller
     ) {
         $this->postCatalogueService = $postCatalogueService;
         $this->postCatalogueRepository = $postCatalogueRepository;
+
+        $this->middleware(function ($request, $next) {
+            $locale = app()->getLocale();
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            $this->initialize();
+            return $next($request);
+        });
+        $this->initialize();
+
+    }
+
+    private function initialize()
+    {
         $this->nestedSet = new Nestedsetbie([
             'table' => 'post_catalogues',
             'foreignkey' => 'post_catalogue_id',
             'language_id' => $this->currentLanguage(),
         ]);
-        $this->language = $this->currentLanguage();
+
     }
 
     public function index(Request $request)
@@ -48,7 +63,7 @@ class PostCatalogueController extends Controller
             'model' => 'PostCatalogue',
         ];
         $config['seo'] = config('apps.postcatalogue');
-        $postCatalogues = $this->postCatalogueService->paginate($request);
+        $postCatalogues = $this->postCatalogueService->paginate($request, $this->language);
         $template = 'backend.post.catalogue.index';
         return view('backend.dashboard.layout', compact(
             'template',
@@ -75,7 +90,7 @@ class PostCatalogueController extends Controller
 
     public function store(StorePostCatalogueRequest $request)
     {
-        if ($this->postCatalogueService->create($request)) {
+        if ($this->postCatalogueService->create($request, $this->language)) {
             return redirect()->route('post.catalogue.index')->with('success', 'Thêm mới bảng ghi thành công');
         }
         return redirect()->route('post.catalogue.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');
@@ -101,7 +116,7 @@ class PostCatalogueController extends Controller
 
     public function update($id, UpdatePostCatalogueRequest $request)
     {
-        if ($this->postCatalogueService->update($id, $request)) {
+        if ($this->postCatalogueService->update($id, $request, $this->language)) {
             return redirect()->route('post.catalogue.index')->with('success', 'Cập nhật bảng ghi thành công');
         }
         return redirect()->route('post.catalogue.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');

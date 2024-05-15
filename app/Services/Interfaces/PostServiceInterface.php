@@ -3,15 +3,10 @@
 namespace App\Services\Interfaces;
 
 /**
- * Interface PostServiceInterface
+ * Interface UserCatalogueServiceInterface
  * @package App\Services\Interfaces
  */
 interface PostServiceInterface
 {
-    public function paginate($request);
-    public function create( $payload);
-    public function update(int $id, $payload);
-    public function delete( int $id);
-    public function updateStatus($post);
-    public function updateStatusAll($post);
+    public function paginate($request, $languageId);
 }

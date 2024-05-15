@@ -34,11 +34,14 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             'language_id' => $this->currentLanguage(),
         ]);
     }
-    public function paginate($request)
+    public function paginate($request, $languageId)
     {
         $conditions = [
             'keywords' => addslashes($request->get('keywords')),
             'publish' => $request->integer('publish'),
+            'where' => [
+                ['tb2.language_id', '=', $languageId],
+            ],
         ];
         $perpage = $request->integer('perpage');
         $paginationConfig = [
@@ -65,7 +68,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         return $posts;
     }
 
-    public function create($request)
+    public function create($request, $languageId)
     {
         DB::beginTransaction();
         try {
@@ -77,7 +80,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                 $this->nestedset = new Nestedsetbie([
                     'table' => 'post_catalogues',
                     'foreignkey' => 'post_catalogue_id',
-                    'language_id' => $this->currentLanguage(),
+                    'language_id' => $languageId,
                 ]);
                 $this->nestedset();
             }
@@ -90,7 +93,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         }
     }
 
-    public function update($id, $request)
+    public function update($id, $request, $languageId)
     {
         DB::beginTransaction();
         try {
@@ -102,7 +105,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                 $this->nestedset = new Nestedsetbie([
                     'table' => 'post_catalogues',
                     'foreignkey' => 'post_catalogue_id',
-                    'language_id' => $this->currentLanguage(),
+                    'language_id' => $languageId,
                 ]);
                 $this->nestedset();
 

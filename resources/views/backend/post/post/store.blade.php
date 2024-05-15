@@ -1,6 +1,6 @@
 @include('backend.dashboard.component.breadcumb',['title'=>$config['seo'][$config['method']]['title']])
 @php
-    $form_action = ($config['method']=='edit') ? route('post.update',['id'=>$post->id]): route('post.store');
+$form_action = ($config['method']=='edit') ? route('post.update',['id'=>$post->id]): route('post.store');
 @endphp
 <form action="{{$form_action}}" class="box" method="post">
     @csrf
@@ -12,11 +12,14 @@
                         <h5>Thông tin chung</h5>
                     </div>
                     <div class="ibox-content">
-                        @include('backend.post.post.component.general')
+                        @include('backend.dashboard.component.content',['model'=>($post)?? null])
+
                     </div>
                 </div>
                 @include('backend.dashboard.component.album')
-                @include('backend.post.post.component.seo')
+                @include('backend.dashboard.component.seo',['model'=>($post)?? null])
+
+
             </div>
             <div class="col-lg-3">
                 @include('backend.post.post.component.aside')
@@ -28,4 +31,3 @@
         </div>
     </div>
 </form>
-

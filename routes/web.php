@@ -51,7 +51,6 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
         Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
         Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
 
-
     });
 
     Route::group(['prefix' => 'language/'], function () {
@@ -63,6 +62,10 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
         Route::post('update/{id}', [LanguageController::class, 'update'])->name('language.update');
         Route::get('delete/{id}', [LanguageController::class, 'delete'])->where(['id' => '[0-9]+'])->name('language.delete');
         Route::delete('destroy/{id}', [LanguageController::class, 'destroy'])->name('language.destroy');
+        Route::get('{postId}/{languageId}/{model}/translate', [LanguageController::class, 'translate'])->where(['postId' => '[0-9]+',
+            'languageId' => '[0-9]+'])->name('language.translate');
+        Route::post('storeTranslate', [LanguageController::class, 'storeTranslate'])->name('language.storeTranslate');
+
     });
 
     Route::group(['prefix' => 'permission/'], function () {

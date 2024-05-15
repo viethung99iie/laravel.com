@@ -5,6 +5,7 @@
                 <input type="checkbox" class="form-check" id="checkAll" value="">
             </th>
             <th>{{__('messages.tableName')}}</th>
+            @include('backend.dashboard.component.languageTh')
 
             <th style="width:80px;" class="text-center">{{__('messages.tableOrder')}}</th>
 
@@ -30,6 +31,8 @@
                         <div class="name"><span class="maintitle">{{ $post->name
                                 }}</span>
                         </div>
+
+
                         <div class="catalogue">
                             <span class="text-danger">{{__('messages.tableGroup')}}
                             </span>
@@ -43,6 +46,8 @@
                     </div>
                 </div>
             </td>
+            @include('backend.dashboard.component.languageTd',['model'=>($post),'modeling'=> 'Post'])
+
             <td>
                 <input type="text" name="order" value="{{ $post->order }}" class="form-control sort-order text-right" data-id="{{ $post->id }}" data-model="{{ $config['model'] }}">
             </td>

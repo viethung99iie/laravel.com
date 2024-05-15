@@ -9,14 +9,14 @@ $form_action = ($config['method']=='edit') ? route('post.catalogue.update',['id'
             <div class="col-lg-9">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Thông tin chung</h5>
+                        <h5>{{__('messages.generalTitle')}}</h5>
                     </div>
                     <div class="ibox-content">
-                        @include('backend.post.catalogue.component.general')
+                        @include('backend.dashboard.component.content',['model'=>($post) ?? null])
                     </div>
                 </div>
                 @include('backend.dashboard.component.album')
-                @include('backend.post.catalogue.component.seo')
+                @include('backend.dashboard.component.seo',['model'=>($post)?? null])
             </div>
             <div class="col-lg-3">
                 @include('backend.post.catalogue.component.aside')

@@ -4,8 +4,6 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>{{__('messages.postCatalogue.index.table')}}</h5>
-
-
                 @include('backend.post.catalogue.component.tool', ['model' => 'PostCatalogue'])
             </div>
             <div class="ibox-content">
