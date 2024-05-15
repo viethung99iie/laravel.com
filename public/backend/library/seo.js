@@ -3,27 +3,30 @@
     var HT = {};
 
     HT.seoPreview = () => {
-        $('input[name="meta_title"]').on('keyup', function(){
+        $("input[name=meta_title]").on("keyup", function () {
             let input = $(this);
             let value = input.val();
-            $('.meta-title').html(value);
-        })
+            $(".meta-title").html(value);
+        });
 
-        $('input[name="canonical"]').css({
-            'padding-left': parseInt($('.baseUrl').outerWidth())+ 10
-        })
+        $(".seo-canonical").each(function () {
+            let _this = $(this);
+            _this.css({
+                "padding-left": parseInt($(".baseUrl").outerWidth()) + 10,
+            });
+        });
 
-        $('input[name="canonical"]').on('keyup', function(){
+        $("input[name=canonical]").on("keyup", function () {
             let input = $(this);
             let value = HT.removeUtf8(input.val());
-            $('.meta-canonical').html(BASE_URL+ value + SUFFIX);
-        })
+            $(".canonical").html(BASE_URL + value + SUFFIX);
+        });
 
-        $('textarea[name="meta_description"]').on('keyup', function(){
+        $("textarea[name=meta_description]").on("keyup", function () {
             let input = $(this);
             let value = input.val();
-            $('.meta-description').html(value);
-        })
+            $(".meta-description").html(value);
+        });
     };
 
     HT.removeUtf8 = (str) => {
@@ -35,12 +38,14 @@
         str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
         str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
         str = str.replace(/đ/g, "d");
-        str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|,|\.|\:|\;|\'|\–| |\"|\&|\#|\[|\]|\\|\/|~|$|_/g, "-");
+        str = str.replace(
+            /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|,|\.|\:|\;|\'|\–| |\"|\&|\#|\[|\]|\\|\/|~|$|_/g,
+            "-"
+        );
         str = str.replace(/-+-/g, "-");
         str = str.replace(/^\-+|\-+$/g, "");
         return str;
-    }
-
+    };
 
     $(document).ready(function () {
         HT.seoPreview();

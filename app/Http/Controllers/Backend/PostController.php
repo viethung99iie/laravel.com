@@ -6,6 +6,7 @@ use App\Classes\Nestedsetbie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Language;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use Illuminate\Http\Request;
@@ -23,14 +24,25 @@ class PostController extends Controller
     ) {
         $this->postService = $postService;
         $this->postRepository = $postRepository;
+        $this->middleware(function ($request, $next) {
+            $locale = app()->getLocale(); // vn en cn
+            $language = Language::where('canonical', $locale)->first();
+            $this->language = $language->id;
+            $this->initialize();
+            return $next($request);
+        });
+        $this->initialize();
+    }
+
+    private function initialize()
+    {
         $this->nestedSet = new Nestedsetbie([
             'table' => 'post_catalogues',
             'foreignkey' => 'post_catalogue_id',
-            'language_id' => $this->currentLanguage(),
+            'language_id' => $this->language,
         ]);
-        $this->language = $this->currentLanguage();
-    }
 
+    }
     public function index(Request $request)
     {
         $this->authorize('modules', 'post.index');
@@ -47,7 +59,7 @@ class PostController extends Controller
             'model' => 'Post',
         ];
         $config['seo'] = config('apps.post');
-        $posts = $this->postService->paginate($request);
+        $posts = $this->postService->paginate($request, $this->language);
         $dropDown = $this->nestedSet->Dropdown();
         $template = 'backend.post.post.index';
         return view('backend.dashboard.layout', compact(
@@ -75,7 +87,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        if ($this->postService->create($request)) {
+        if ($this->postService->create($request, $this->language)) {
             return redirect()->route('post.index')->with('success', 'Thêm mới bảng ghi thành công');
         }
         return redirect()->route('post.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');
@@ -101,7 +113,7 @@ class PostController extends Controller
 
     public function update($id, UpdatePostRequest $request)
     {
-        if ($this->postService->update($id, $request)) {
+        if ($this->postService->update($id, $request, $this->language)) {
             return redirect()->route('post.index')->with('success', 'Cập nhật bảng ghi thành công');
         }
         return redirect()->route('post.index')->with('error', 'Đã có lỗi xảy ra, vui lòng  thử lại');

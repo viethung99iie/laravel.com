@@ -42,6 +42,6 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
             ->join('post_language as tb2', 'tb2.post_id', 'id')
             ->with('post_catalogues')
             ->where('tb2.language_id', $language_id)
-            ->findOrFail($id);
+            ->find($id);
     }
 }

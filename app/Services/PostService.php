@@ -15,23 +15,21 @@ use Illuminate\Support\Str;
 class PostService extends BaseService implements PostServiceInterface
 {
     protected $postRepository;
-    protected $language;
 
-    protected $controllerName = ['PostController'];
+    protected $controllerName = 'PostController';
 
     public function __construct(
         PostRepository $postRepository,
     ) {
         $this->postRepository = $postRepository;
-        $this->language = $this->currentLanguage();
     }
-    public function paginate($request)
+    public function paginate($request, $languageId)
     {
         $conditions = [
             'keywords' => addslashes($request->get('keywords')),
             'publish' => $request->integer('publish'),
             'where' => [
-                ['tb2.language_id', '=', $this->language],
+                ['tb2.language_id', '=', $languageId],
             ],
         ];
         $perpage = $request->integer('perpage');
@@ -44,7 +42,7 @@ class PostService extends BaseService implements PostServiceInterface
             ['post_catalogue_post as tb3', 'posts.id', '=', 'tb3.post_id'],
         ];
         $relations = ['post_catalogues'];
-        $rawQuery = $this->whereRaw($request, $this->language);
+        $rawQuery = $this->whereRaw($request, $languageId);
         $posts = $this->postRepository->paginate(
             $this->select(),
             $conditions,
@@ -58,15 +56,18 @@ class PostService extends BaseService implements PostServiceInterface
         return $posts;
     }
 
-    public function create($request)
+    public function create($request, $languageId)
     {
         DB::beginTransaction();
         try {
             $post = $this->createPost($request);
             if ($post->id > 0) {
-                $this->updateLanguageForPost($post, $request, 1);
+                $this->updateLanguageForPost($post, $request, $languageId);
+
                 $this->updateCatalogueForPost($post, $request);
+
                 $this->createRouter($post, $request, $this->controllerName);
+                echo 123;die();
 
             }
             DB::commit();
@@ -79,13 +80,13 @@ class PostService extends BaseService implements PostServiceInterface
         }
     }
 
-    public function update($id, $request)
+    public function update($id, $request, $languageId)
     {
         DB::beginTransaction();
         try {
             $post = $this->postRepository->findById($id);
             if ($this->updatePost($post, $request)) {
-                $this->updateLanguageForPost($post, $request, 1);
+                $this->updateLanguageForPost($post, $request, $languageId);
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter($post, $request, $this->controllerName);
             }
