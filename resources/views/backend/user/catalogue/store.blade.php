@@ -1,6 +1,6 @@
-@include('backend.dashboard.component.breadcumb',['title'=>$config['seo'][$config['method']]['title']])
+@include('backend.dashboard.component.breadcrumb',['title'=>$config['seo'][$config['method']]['title']])
 @php
-    $form_action = ($config['method']=='edit') ? route('user.catalogue.update',['id'=>$userCatalogue->id]): route('user.catalogue.store');
+$form_action = ($config['method']=='edit') ? route('user.catalogue.update',['id'=>$userCatalogue->id]): route('user.catalogue.store');
 @endphp
 <form action="{{$form_action}}" class="box" method="post">
     @csrf
@@ -24,36 +24,22 @@
                                     <label for="" class="control-label text-left">
                                         Tên nhóm thành viên <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value="{{old('name',($userCatalogue->name) ?? '')}} "
-                                        class="form-control"
-                                        placeholder="VD: Quản trị viên"
-                                        autocomplete="off"
-                                    >
+                                    <input type="text" name="name" value="{{old('name',($userCatalogue->name) ?? '')}} " class="form-control" placeholder="VD: Quản trị viên" autocomplete="off">
                                 </div>
-                                 @error('name')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                @error('name')
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
                                         Ghi chú
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="description"
-                                        value="{{old('description',($userCatalogue->description) ?? '')}} "
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    >
+                                    <input type="text" name="description" value="{{old('description',($userCatalogue->description) ?? '')}} " class="form-control" placeholder="" autocomplete="off">
                                 </div>
                                 @error('description')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -65,4 +51,3 @@
         </div>
     </div>
 </form>
-

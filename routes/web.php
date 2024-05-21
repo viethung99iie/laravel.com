@@ -4,13 +4,18 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\GenerateController;
 use App\Http\Controllers\Backend\LanguageController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\ProductCatalogueController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
+
+//@@useController@@
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +73,16 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
 
     });
 
+    Route::group(['prefix' => 'generate/'], function () {
+        Route::get('index', [GenerateController::class, 'index'])->name('generate.index');
+        Route::get('create', [GenerateController::class, 'create'])->name('generate.create');
+        Route::post('store', [GenerateController::class, 'store'])->name('generate.store');
+        Route::get('edit/{id}', [GenerateController::class, 'edit'])->where(['id' => '[0-9]+'])->name('generate.edit');
+        Route::post('update/{id}', [GenerateController::class, 'update'])->name('generate.update');
+        Route::get('delete/{id}', [GenerateController::class, 'delete'])->where(['id' => '[0-9]+'])->name('generate.delete');
+        Route::delete('destroy/{id}', [GenerateController::class, 'destroy'])->name('generate.destroy');
+    });
+
     Route::group(['prefix' => 'permission/'], function () {
         Route::get('index', [PermissionController::class, 'index'])->name('permission.index');
         Route::get('create', [PermissionController::class, 'create'])->name('permission.create');
@@ -96,7 +111,28 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
         Route::post('update/{id}', [PostController::class, 'update'])->name('post.update');
         Route::get('delete/{id}', [PostController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.delete');
         Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+
     });
+    Route::group(['prefix' => 'product/catalogue'], function () {
+        Route::get('index', [ProductCatalogueController::class, 'index'])->name('product.catalogue.index');
+        Route::get('create', [ProductCatalogueController::class, 'create'])->name('product.catalogue.create');
+        Route::post('store', [ProductCatalogueController::class, 'store'])->name('product.catalogue.store');
+        Route::get('{id}/edit', [ProductCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('product.catalogue.edit');
+        Route::post('{id}/update', [ProductCatalogueController::class, 'update'])->where(['id' => '[0-9]+'])->name('product.catalogue.update');
+        Route::get('{id}/delete', [ProductCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.catalogue.delete');
+        Route::delete('{id}/destroy', [ProductCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.catalogue.destroy');
+    });
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('index', [ProductController::class, 'index'])->name('product.index');
+        Route::get('create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('{id}/edit', [ProductController::class, 'edit'])->where(['id' => '[0-9]+'])->name('product.edit');
+        Route::post('{id}/update', [ProductController::class, 'update'])->where(['id' => '[0-9]+'])->name('product.update');
+        Route::get('{id}/delete', [ProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.delete');
+        Route::delete('{id}/destroy', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
+    });
+    //@@new-module@@
+
 // AJAX
     Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.getLocation');
 

@@ -1,4 +1,4 @@
-@include('backend.dashboard.component.breadcumb',['title'=>__('messages.post.index.title')])
+@include('backend.dashboard.component.breadcrumb',['title'=>__('messages.post.index.title')])
 
 
 <div class="row mt20">

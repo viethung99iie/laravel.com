@@ -62,7 +62,7 @@ class BaseService implements BaseServiceInterface
 
     public function updateRouter($model, $request, $controllerName, $languageId)
     {
-        $payload = $this->formatRouterPayload($model, $request, $controllerName);
+        $payload = $this->formatRouterPayload($model, $request, $controllerName, $languageId);
         $condition = [
             ['module_id', '=', $model->id],
             ['controllers', '=', 'App\Http\Controllers\Frontend\\' . $controllerName],

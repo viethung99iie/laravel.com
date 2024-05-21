@@ -1,4 +1,4 @@
-@include('backend.dashboard.component.breadcumb',['title'=>$config['seo'][$config['method']]['title']])
+@include('backend.dashboard.component.breadcrumb',['title'=>$config['seo'][$config['method']]['title']])
 @php
 $form_action = ($config['method']=='edit') ? route('post.catalogue.update',['id'=>$post->id]): route('post.catalogue.store');
 @endphp

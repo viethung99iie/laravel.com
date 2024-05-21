@@ -1,4 +1,4 @@
-@include('backend.user.user.component.breadcumb',['title'=>$config['seo']['delete']['title']])
+@include('backend.user.user.component.breadcrumb',['title'=>$config['seo']['delete']['title']])
 <form action="{{route('user.destroy',$user->id)}}" class="box" method="post">
     @csrf
     @method('Delete')
@@ -22,38 +22,22 @@
                                     <label for="" class="control-label text-left">
                                         Email <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        value="{{old('email',($user->email) ?? '')}} "
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        readonly
-                                    >
+                                    <input type="text" name="email" value="{{old('email',($user->email) ?? '')}} " class="form-control" placeholder="" autocomplete="off" readonly>
                                 </div>
-                                 @error('email')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                @error('email')
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label text-left">
                                         Tên người dùng <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value="{{old('name',($user->name) ?? '')}} "
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        readonly
-                                    >
+                                    <input type="text" name="name" value="{{old('name',($user->name) ?? '')}} " class="form-control" placeholder="" autocomplete="off" readonly>
                                 </div>
                                 @error('name')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
