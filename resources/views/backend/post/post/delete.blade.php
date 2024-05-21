@@ -1,8 +1,8 @@
-@include('backend.dashboard.component.breadcumb',['title'=>$config['seo']['delete']['title']])
+@include('backend.dashboard.component.breadcrumb',['title'=>$config['seo']['delete']['title']])
 @if ($errors->any())
-    <div class="alert alert-danger">
-        Đã có lỗi xảy ra vui lòng kiểm tra lại..
-    </div>
+<div class="alert alert-danger">
+    Đã có lỗi xảy ra vui lòng kiểm tra lại..
+</div>
 @endif
 <form action="{{route('post.destroy',$post->id)}}" class="box" method="post">
     @csrf
@@ -27,19 +27,11 @@
                                     <label for="" class="control-label text-left">
                                         Tên nhóm bài viết <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value="{{old('name',($post->name) ?? '')}} "
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        readonly
-                                    >
+                                    <input type="text" name="name" value="{{old('name',($post->name) ?? '')}} " class="form-control" placeholder="" autocomplete="off" readonly>
                                 </div>
-                                 @error('name')
-                                    <div class="error-message">* {{ $message }}</div>
-                                 @enderror
+                                @error('name')
+                                <div class="error-message">* {{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

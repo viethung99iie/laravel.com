@@ -1,30 +1,30 @@
 <?php
 return [
     'module' => [
-        // [
-        //     'title' => 'QL sản phẩm',
-        //     'icon' => 'fa fa-cube',
-        //     'name' => ['product','attribute'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'QL Nhóm sản phẩm',
-        //             'route' => 'product/catalogue/index'
-        //         ],
-        //         [
-        //             'title' => 'QL sản phẩm',
-        //             'route' => 'product/index'
-        //         ],
-        //         [
-        //             'title' => 'QL Loại thuộc tính',
-        //             'route' => 'attribute/catalogue/index'
-        //         ],
-        //         [
-        //             'title' => 'QL thuộc tính',
-        //             'route' => 'attribute/index'
-        //         ],
+        [
+            'title' => 'QL sản phẩm',
+            'icon' => 'fa fa-cube',
+            'name' => ['product', 'attribute'],
+            'subModule' => [
+                [
+                    'title' => 'QL Nhóm sản phẩm',
+                    'route' => 'product.catalogue.index',
+                ],
+                [
+                    'title' => 'QL sản phẩm',
+                    'route' => 'product.index',
+                ],
+                // [
+                //     'title' => 'QL Loại thuộc tính',
+                //     'route' => 'attribute.catalogue.index',
+                // ],
+                // [
+                //     'title' => 'QL thuộc tính',
+                //     'route' => 'attribute.index',
+                // ],
 
-        //     ]
-        // ],
+            ],
+        ],
         [
             'title' => 'QL Bài viết',
             'icon' => 'fa fa-file',
@@ -68,6 +68,11 @@ return [
                     'title' => 'QL Ngôn ngữ',
                     'route' => 'language.index',
                 ],
+                [
+                    'title' => 'QL Module',
+                    'route' => 'generate.index',
+                ],
+
             ],
         ],
     ],

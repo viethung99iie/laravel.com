@@ -1,4 +1,4 @@
-@include('backend.dashboard.component.breadcumb',['title'=>__('messages.postCatalogue.index.title')])
+@include('backend.dashboard.component.breadcrumb',['title'=>__('messages.postCatalogue.index.title')])
 <div class="row mt20">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">

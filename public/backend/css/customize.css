@@ -79,6 +79,9 @@ table strong {
     max-width: 200px;
     font-size: 13px;
 }
+input[name="keyword"] {
+    width: 200px !important;
+}
 .mr10 {
     margin-right: 10px;
 }

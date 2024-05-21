@@ -1,4 +1,4 @@
-@include('backend.dashboard.component.breadcumb', ['title' => $config['seo']['create']['title']])
+@include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['create']['title']])
 
 <form action="{{ route('permission.destroy', $permission->id) }}" method="post" class="box">
     @csrf
