@@ -1,99 +1,193 @@
-<?php  
+<?php
 return [
+    'galleryCatalogue' => [
+        'index' => [
+            'title' => 'Image Management',
+            'table' => 'List of Image Groups',
+        ],
+        'create' => [
+            'title' => 'Add New Image Group',
+        ],
+        'edit' => [
+            'title' => 'Update Image Group',
+        ],
+        'delete' => [
+            'title' => 'Delete Image Group',
+        ],
+    ],
+    'productCatalogue' => [
+        'index' => [
+            'title' => 'Product Group Management',
+            'table' => 'List of Product Groups',
+        ],
+        'create' => [
+            'title' => 'Add New Product Group',
+        ],
+        'edit' => [
+            'title' => 'Update Product Group',
+        ],
+        'delete' => [
+            'title' => 'Delete Product Group',
+        ],
+    ],
+    'attributeCatalogue' => [
+        'index' => [
+            'title' => 'Attribute Type Management',
+            'table' => 'List of Attribute Types',
+        ],
+        'create' => [
+            'title' => 'Add New Attribute Type',
+        ],
+        'edit' => [
+            'title' => 'Update Attribute Type',
+        ],
+        'delete' => [
+            'title' => 'Delete Attribute Type',
+        ],
+    ],
+    'attribute' => [
+        'index' => [
+            'title' => 'Attribute Management',
+            'table' => 'List of Attributes',
+        ],
+        'create' => [
+            'title' => 'Add New Attribute',
+        ],
+        'edit' => [
+            'title' => 'Update Attribute',
+        ],
+        'delete' => [
+            'title' => 'Delete Attribute',
+        ],
+    ],
+    'product' => [
+        'index' => [
+            'title' => 'Product Management',
+            'table' => 'List of Products',
+        ],
+        'create' => [
+            'title' => 'Add New Product',
+        ],
+        'edit' => [
+            'title' => 'Update Product',
+        ],
+        'delete' => [
+            'title' => 'Delete Product',
+        ],
+        'information' => 'General Information',
+        'code' => 'Product Code',
+        'made_in' => 'Made In',
+        'price' => 'Product Price',
+    ],
     'postCatalogue' => [
         'index' => [
             'title' => 'Post Management',
-            'table' => 'Post Group List'
+            'table' => 'List of Post Groups',
         ],
         'create' => [
-            'title' => 'Add New Post Group'
+            'title' => 'Add New Post Group',
         ],
         'edit' => [
-            'title' => 'Update Post Group'
+            'title' => 'Update Post Group',
         ],
         'delete' => [
-            'title' => 'Delete Post Group'
-        ],    
+            'title' => 'Delete Post Group',
+        ],
     ],
     'post' => [
         'index' => [
             'title' => 'Post Management',
-            'table' => 'Post List'
+            'table' => 'List of Posts',
         ],
         'create' => [
-            'title' => 'Add New Post'
+            'title' => 'Add New Post',
         ],
         'edit' => [
-            'title' => 'Update Post'
+            'title' => 'Update Post',
         ],
         'delete' => [
-            'title' => 'Delete Post'
+            'title' => 'Delete Post',
         ],
     ],
     'userCatalogue' => [
         'index' => [
             'title' => 'User Group Management',
-            'table' => 'User Group List'
+            'table' => 'List of User Groups',
         ],
         'create' => [
-            'title' => 'Add New User Group'
+            'title' => 'Add New User Group',
         ],
         'edit' => [
-            'title' => 'Update User Group'
+            'title' => 'Update User Group',
         ],
         'delete' => [
-            'title' => 'Delete User Group'
+            'title' => 'Delete User Group',
         ],
         'permission' => [
-            'title' => 'Update Permissions'
-        ],  
+            'title' => 'Update Permissions',
+        ],
     ],
     'permission' => [
         'index' => [
             'title' => 'Permission Management',
-            'table' => 'Permission List'
+            'table' => 'List of Permissions',
         ],
         'create' => [
-            'title' => 'Add New Permission'
+            'title' => 'Add New Permission',
         ],
         'edit' => [
-            'title' => 'Update Permission'
+            'title' => 'Update Permission',
         ],
         'delete' => [
-            'title' => 'Delete Permission'
-        ],   
+            'title' => 'Delete Permission',
+        ],
     ],
-    'parent' => 'Choose parent category',
-    'parentNotice' => 'Choose Root if there is no parent category',
-    'subparent' => 'Choose sub-category (if available)',
-    'image' => 'Choose display image',
+    'generate' => [
+        'index' => [
+            'title' => 'Module Management',
+            'table' => 'List of Modules',
+        ],
+        'create' => [
+            'title' => 'Add New Module',
+        ],
+        'edit' => [
+            'title' => 'Update Module',
+        ],
+        'delete' => [
+            'title' => 'Delete Module',
+        ],
+    ],
+    'parent' => 'Select Parent Category',
+    'parentNotice' => 'Select Root if there is no parent category',
+    'subparent' => 'Select Subcategory (if any)',
+    'image' => 'Select Image',
     'advange' => 'Advanced Configuration',
     'search' => 'Search',
     'searchInput' => 'Enter the keyword you want to search...',
-    'perpage' => 'records',
+    'perpage' => 'records per page',
     'title' => 'Title',
-    'description' => 'Short description',
+    'description' => 'Short Description',
     'content' => 'Content',
-    'upload' => 'Upload multiple images',
+    'upload' => 'Upload Multiple Images',
     'seo' => 'SEO Configuration',
-    'seoTitle' => 'You do not have an SEO title yet',
-    'seoCanonical' => 'https://your-link.html',
-    'seoDescription' => 'You do not have an SEO title yet',
+    'seoTitle' => 'You do not have an SEO title',
+    'seoCanonical' => 'https://your-url.html',
+    'seoDescription' => 'You do not have an SEO description',
     'seoMetaTitle' => 'SEO Title',
-    'seoMetaKeyword' => 'SEO Keyword',
+    'seoMetaKeyword' => 'SEO Keywords',
     'seoMetaDescription' => 'SEO Description',
-    'canonical' => 'Path',
-    'character' => 'Character',
+    'canonical' => 'Canonical URL',
+    'character' => 'Characters',
     'tableStatus' => 'Status',
-    'tableAction' => 'Actions',
+    'tableAction' => 'Action',
     'tableName' => 'Title',
     'tableOrder' => 'Order',
     'tableGroup' => 'Display Group:',
-    'deleteButton' => 'Delete data',
+    'deleteButton' => 'Delete Data',
     'tableHeading' => 'General Information',
     'save' => 'Save',
     'publish' => [
-        '0' => 'Choose status',
+        '0' => 'Select Status',
         '1' => 'Unpublished',
         '2' => 'Published',
     ],
@@ -103,10 +197,12 @@ return [
     ],
     'album' => [
         'heading' => 'Photo Album',
-        'image' => 'Choose Image',
-        'notice' => 'Use the select image button or click here to add images'
+        'image' => 'Select Image',
+        'notice' => 'Use the image selection button or click here to add images',
     ],
     'generalTitle' => 'General Information',
-    'generalDescription' => 'You are about to delete a language named:
-    Note: Data cannot be restored after deleting. Make sure you want to perform this function'
+    'generalDescription' => 'You are about to delete a language named:',
+    'note' => 'Note: Data cannot be recovered after deletion. Please make sure you want to perform this function',
+    'error' => 'An error occurred, please check again..',
+    'confirm' => 'Confirm',
 ];

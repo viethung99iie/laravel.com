@@ -2,11 +2,11 @@
 
 namespace App\Rules;
 
-use App\Models\{Module};
+use App\Models\AttributeCatalogue;
 use Closure;
 use Illuminate\Contracts\Validation\Rule;
 
-class Check{Module}ChildrenRule implements Rule
+class CheckAttributeCatalogueChildrenRule implements Rule
 {
 
     protected $id;
@@ -27,7 +27,7 @@ class Check{Module}ChildrenRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return {Module}::isNodeCheck($this->id);
+        return AttributeCatalogue::isNodeCheck($this->id);
 
     }
     public function message()

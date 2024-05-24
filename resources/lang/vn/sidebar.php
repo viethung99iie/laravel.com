@@ -14,14 +14,14 @@ return [
                     'title' => 'QL sản phẩm',
                     'route' => 'product.index',
                 ],
-                // [
-                //     'title' => 'QL Loại thuộc tính',
-                //     'route' => 'attribute.catalogue.index',
-                // ],
-                // [
-                //     'title' => 'QL thuộc tính',
-                //     'route' => 'attribute.index',
-                // ],
+                [
+                    'title' => 'QL Loại thuộc tính',
+                    'route' => 'attribute.catalogue.index',
+                ],
+                [
+                    'title' => 'QL thuộc tính',
+                    'route' => 'attribute.index',
+                ],
 
             ],
         ],

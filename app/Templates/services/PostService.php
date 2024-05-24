@@ -110,6 +110,10 @@ class {$class}Service extends BaseService implements {$class}ServiceInterface
         DB::beginTransaction();
         try{
             ${module} = $this->{module}Repository->delete($id);
+            $this->routerRepository->forceDeleteByCondition([
+                ['module_id', '=', $id],
+                ['controllers', '=', 'App\Http\Controllers\Frontend\\'.$this->controllerName],
+            ]);
 
             DB::commit();
             return true;

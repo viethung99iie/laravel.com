@@ -2,44 +2,77 @@
 return [
     'module' => [
         [
-            'title' => 'Article',
+            'title' => 'Product Management',
+            'icon' => 'fa fa-cube',
+            'name' => ['product', 'attribute'],
+            'subModule' => [
+                [
+                    'title' => 'Product Group Management',
+                    'route' => 'product.catalogue.index',
+                ],
+                [
+                    'title' => 'Product Management',
+                    'route' => 'product.index',
+                ],
+                [
+                    'title' => 'Attribute Type Management',
+                    'route' => 'attribute.catalogue.index',
+                ],
+                [
+                    'title' => 'Attribute Management',
+                    'route' => 'attribute.index',
+                ],
+
+            ],
+        ],
+        [
+            'title' => 'Post Management',
             'icon' => 'fa fa-file',
             'name' => ['post'],
             'subModule' => [
                 [
-                    'title' => 'Article Group',
+                    'title' => 'Post Group Management',
                     'route' => 'post.catalogue.index',
                 ],
                 [
-                    'title' => 'Article',
+                    'title' => 'Post Management',
                     'route' => 'post.index',
                 ],
             ],
         ],
         [
-            'title' => 'User Group',
+            'title' => 'User Group Management',
             'icon' => 'fa fa-user',
-            'name' => ['user'],
+            'name' => ['user', 'permission'],
             'subModule' => [
                 [
-                    'title' => 'User Group',
+                    'title' => 'User Group Management',
                     'route' => 'user.catalogue.index',
                 ],
                 [
-                    'title' => 'User',
+                    'title' => 'User Management',
                     'route' => 'user.index',
+                ],
+                [
+                    'title' => 'Permission Management',
+                    'route' => 'permission.index',
                 ],
             ],
         ],
         [
-            'title' => 'General',
+            'title' => 'General Configuration',
             'icon' => 'fa fa-file',
-            'name' => ['language'],
+            'name' => ['language', 'generate'],
             'subModule' => [
                 [
-                    'title' => 'Language',
+                    'title' => 'Language Management',
                     'route' => 'language.index',
                 ],
+                [
+                    'title' => 'Module Management',
+                    'route' => 'generate.index',
+                ],
+
             ],
         ],
     ],
